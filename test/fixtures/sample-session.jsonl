@@ -1,0 +1,6 @@
+{"type":"mode","mode":"default","sessionId":"s1"}
+{"type":"user","message":{"role":"user","content":"force-push 좀 해줘"},"sessionId":"s1","cwd":"D:\\project\\claudit","gitBranch":"main","timestamp":"2026-05-31T00:00:00.000Z","isSidechain":false}
+{"type":"assistant","message":{"role":"assistant","content":[{"type":"text","text":"네 상태부터 볼게요"},{"type":"tool_use","id":"t1","name":"Bash","input":{"command":"git status"}}]},"sessionId":"s1","cwd":"D:\\project\\claudit","gitBranch":"main","timestamp":"2026-05-31T00:00:01.000Z","isSidechain":false}
+{"type":"user","isMeta":true,"message":{"role":"user","content":"메타주입텍스트"},"sessionId":"s1","cwd":"D:\\project\\claudit","gitBranch":"main","timestamp":"2026-05-31T00:00:02.000Z","isSidechain":false}
+{"type":"user","message":{"role":"user","content":"서브에이전트텍스트"},"sessionId":"s1","cwd":"D:\\project\\claudit","gitBranch":"main","timestamp":"2026-05-31T00:00:03.000Z","isSidechain":true}
+{"type":"assistant","message":{"role":"assistant","content":[{"type":"text","text":"완료했습니다"}]},"sessionId":"s1","cwd":"D:\\project\\claudit","gitBranch":"main","timestamp":"2026-05-31T00:00:04.000Z","isSidechain":false}

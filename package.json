@@ -1,0 +1,43 @@
+{
+  "name": "claude-rx",
+  "version": "0.1.0",
+  "description": "Audit how well Claude Code followed your CLAUDE.md — and prescribe fixes (promote to hook, delete dead rules)",
+  "type": "module",
+  "bin": { "claude-rx": "dist/cli.js" },
+  "files": ["dist"],
+  "engines": { "node": ">=20" },
+  "keywords": [
+    "claude-code",
+    "claude.md",
+    "claude",
+    "cli",
+    "audit",
+    "lint",
+    "rules",
+    "hooks",
+    "prescription"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx src/cli.ts",
+    "test": "vitest run",
+    "lint": "eslint src",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.40.0",
+    "commander": "^12.0.0",
+    "picocolors": "^1.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "tsx": "^4.7.0",
+    "vitest": "^1.4.0",
+    "eslint": "^8.57.0",
+    "@typescript-eslint/parser": "^7.0.0",
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@types/node": "^20.11.0"
+  }
+}

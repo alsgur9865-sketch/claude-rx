@@ -1,0 +1,6 @@
+node_modules/
+dist/
+.claudit/
+*.log
+.env
+claude-rx-report.md
