@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/banner.png" alt="claude-rx" width="640">
+</p>
+
 # claude-rx
 
 > Your CLAUDE.md rules are advisory — and Claude often ignores them. **claude-rx** audits your real Claude Code session logs to see which rules were *actually* followed, then **prescribes what to do** about each one.
