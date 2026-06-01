@@ -4,3 +4,6 @@ dist/
 *.log
 .env
 claude-rx-report.md
+
+# 로컬 작업 문서 (배포 대상 아님)
+docs/
