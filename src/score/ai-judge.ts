@@ -3,7 +3,7 @@ import Anthropic from "@anthropic-ai/sdk";
 import type { Rule, SessionTranscript, Verdict } from "../types.js";
 
 /** judge에 넣을 대화 발췌 (길이 제한: 최근 메시지 위주 8000자) */
-function transcriptExcerpt(session: SessionTranscript): string {
+export function transcriptExcerpt(session: SessionTranscript): string {
   const lines = session.messages.map(
     (m) =>
       `[${m.role}] ${m.text}${
