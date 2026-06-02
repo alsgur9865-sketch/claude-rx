@@ -3,6 +3,10 @@
 </p>
 
 <p align="center">
+  <img src="assets/demo.gif" alt="claude-rx in action — catches 5 rule violations in one run, no API key" width="760">
+</p>
+
+<p align="center">
   <b>English</b> · <a href="README.ko.md">한국어</a>
 </p>
 

@@ -3,6 +3,10 @@
 </p>
 
 <p align="center">
+  <img src="assets/demo.gif" alt="claude-rx 실행 화면 — 키 없이 한 번에 규칙 위반 5개 포착" width="760">
+</p>
+
+<p align="center">
   <a href="README.md">English</a> · <b>한국어</b>
 </p>
 
