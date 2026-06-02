@@ -2,6 +2,10 @@
   <img src="assets/banner.png" alt="claude-rx" width="640">
 </p>
 
+<p align="center">
+  <b>English</b> · <a href="README.ko.md">한국어</a>
+</p>
+
 # claude-rx
 
 > Your CLAUDE.md rules are advisory — and Claude often ignores them. **claude-rx** audits your real Claude Code session logs to see which rules were *actually* followed, then **prescribes what to do** about each one.
@@ -33,12 +37,12 @@ npx claude-rx
 Out of the box, claude-rx runs **5 built-in machine checks** — force-push, `reset --hard`, committing `.env`, hardcoded secrets, global installs — against your recent sessions. **Completely free, no key.**
 
 ```
-claude-rx 처방 — ~/.claude/CLAUDE.md (세션 5개)
+claude-rx prescriptions — ~/.claude/CLAUDE.md (5 sessions)
 
-🔧 hook으로 올려라 (기계검증 + 위반)
-   0%  no-force-push   (위반 1/NA 1)
+🔧 Promote to a hook (machine-checkable + violated)
+   0%  no-force-push   (violated 1/NA 1)
 
-규칙 5개 → 🔧1 / 🗑️0 / ✍️0 / ✅4
+5 rules → 🔧1 / 🗑️0 / ✍️0 / ✅4
 ```
 
 ## Deeper analysis (bring your own key)
