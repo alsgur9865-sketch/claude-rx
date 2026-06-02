@@ -14,7 +14,8 @@ import { aggregate } from "./score/aggregate.js";
 import { printTerminal } from "./report/terminal.js";
 import { renderMarkdown } from "./report/markdown.js";
 import { BUILTIN_RULES } from "./rules/builtin.js";
-import type { Verdict, Rule } from "./types.js";
+import { strings } from "./report/i18n.js";
+import type { Verdict, Rule, Lang } from "./types.js";
 
 const program = new Command();
 program
@@ -24,7 +25,8 @@ program
   .option("-c, --cwd <dir>", "분석할 프로젝트 cwd", process.cwd())
   .option("-l, --limit <n>", "분석 세션 수", "20")
   .option("-o, --out <file>", "마크다운 리포트 저장 경로", "claude-rx-report.md")
-  .option("--json", "기계검증 처방 + 세션 발췌를 JSON으로 출력 (skill 백엔드용, 키 불필요)");
+  .option("--json", "기계검증 처방 + 세션 발췌를 JSON으로 출력 (skill 백엔드용, 키 불필요)")
+  .option("--lang <lang>", "리포트 언어 en|ko (기본 en)", "en");
 program.parse();
 const opts = program.opts();
 
@@ -55,9 +57,7 @@ if (opts.json) {
     const { content, hash } = loadClaudeMd(opts.path);
     rules = await extractRules(content, hash);
   } else {
-    console.warn(
-      `⚠ ANTHROPIC_API_KEY 없음 → 내장 기계검증 규칙 ${BUILTIN_RULES.length}개만 사용 (주관 규칙 분석은 키 필요)`,
-    );
+    console.warn(strings(opts.lang as Lang).noKey(BUILTIN_RULES.length));
     rules = BUILTIN_RULES;
   }
 
@@ -70,7 +70,7 @@ if (opts.json) {
   }
 
   const report = aggregate(opts.path, files.length, rules, verdicts);
-  printTerminal(report);
-  writeFileSync(opts.out, renderMarkdown(report));
+  printTerminal(report, opts.lang as Lang);
+  writeFileSync(opts.out, renderMarkdown(report, opts.lang as Lang));
   console.log(`📄 리포트 저장: ${opts.out}`);
 }

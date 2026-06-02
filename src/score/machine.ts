@@ -38,6 +38,6 @@ export function scoreMachine(rule: Rule, session: SessionTranscript): Verdict {
     sessionId: session.sessionId,
     status: match ? "violation" : "na", // MVP: 금지형 패턴 가정
     confidence: 1,
-    evidence: match ? `패턴 매칭: "${match[0]}"` : "패턴 미등장",
+    evidence: match ? `matched: "${match[0]}"` : "not found",
   };
 }

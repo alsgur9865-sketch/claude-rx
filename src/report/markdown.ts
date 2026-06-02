@@ -1,48 +1,48 @@
 // File: src/report/markdown.ts
-import type { AdherenceReport, RuleStat, Prescription } from "../types.js";
+import type { AdherenceReport, Prescription, Lang } from "../types.js";
+import { strings } from "./i18n.js";
 
-function pct(rate: number | null): string {
-  return rate === null ? "N/A" : `${Math.round(rate * 100)}%`;
+function pct(rate: number | null, na: string): string {
+  return rate === null ? na : `${Math.round(rate * 100)}%`;
 }
 
-const SECTIONS: { key: Prescription; title: string }[] = [
-  { key: "hook", title: "🔧 hook으로 올려라 (기계검증 가능 + 위반)" },
-  { key: "delete", title: "🗑️ 지워도 된다 (적용 0회 — 죽은 규칙)" },
-  { key: "reword", title: "✍️ 표현을 강화해라 (주관적 + 자주 깨짐)" },
-];
-
-function ruleLine(s: RuleStat): string {
-  return `- \`${s.ruleId}\` ${s.text} — 준수율 ${pct(s.rate)} (지킴 ${s.pass}/위반 ${s.violation}/NA ${s.na})`;
-}
-
-export function renderMarkdown(r: AdherenceReport): string {
-  const sections = SECTIONS.map(({ key, title }) => {
-    const rules = r.stats.filter((s) => s.prescription === key);
-    const body = rules.length ? rules.map(ruleLine).join("\n") : "_해당 없음_";
-    return `## ${title}\n${body}`;
-  }).join("\n\n");
+export function renderMarkdown(r: AdherenceReport, lang: Lang = "en"): string {
+  const t = strings(lang);
+  const sectionDefs: { key: Prescription; title: string }[] = [
+    { key: "hook", title: t.secHook },
+    { key: "delete", title: t.secDelete },
+    { key: "reword", title: t.secReword },
+  ];
+  const sections = sectionDefs
+    .map(({ key, title }) => {
+      const rules = r.stats.filter((s) => s.prescription === key);
+      const body = rules.length
+        ? rules
+            .map((s) => t.mdRule(s.ruleId, s.text, pct(s.rate, t.na), s.pass, s.violation, s.na))
+            .join("\n")
+        : t.none;
+      return `## ${title}\n${body}`;
+    })
+    .join("\n\n");
 
   const violations = r.verdicts
     .filter((v) => v.status === "violation")
-    .map((v) => `- **${v.ruleId}** (세션 ${v.sessionId}, conf ${v.confidence}): ${v.evidence}`)
+    .map((v) => t.mdViolLine(v.ruleId, v.sessionId, v.confidence, v.evidence))
     .join("\n");
 
   const count = (k: Prescription) => r.stats.filter((s) => s.prescription === k).length;
-  const summary = `규칙 ${r.stats.length}개 → 🔧hook ${count("hook")} / 🗑️삭제 ${count(
-    "delete"
-  )} / ✍️강화 ${count("reword")} / ✅유지 ${count("keep")}`;
 
-  return `# claudit 처방 리포트
+  return `# ${t.mdTitle}
 
-- 대상: \`${r.claudeMdPath}\`
-- 분석 세션: ${r.sessionCount}개
+- ${t.mdTarget}: \`${r.claudeMdPath}\`
+- ${t.mdSessions(r.sessionCount)}
 
 ${sections}
 
-## 위반 근거
-${violations || "_위반 없음_"}
+## ${t.mdViolTitle}
+${violations || t.mdNoViol}
 
 ---
-**${summary}**
+**${t.summary(r.stats.length, count("hook"), count("delete"), count("reword"), count("keep"))}**
 `;
 }

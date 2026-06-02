@@ -1,6 +1,9 @@
 // File: src/types.ts
 // 파이프라인 전체가 공유하는 타입. 모듈 간 유일한 결합점.
 
+/** 리포트 출력 언어 */
+export type Lang = "en" | "ko";
+
 /** 정규화된 한 메시지 (메타·hook 줄은 제외하고 대화만) */
 export interface NormalizedMessage {
   role: "user" | "assistant";

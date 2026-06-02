@@ -16,16 +16,22 @@ const report: AdherenceReport = {
 };
 
 describe("renderMarkdown", () => {
-  it("준수율과 위반 근거를 담는다", () => {
-    const md = renderMarkdown(report);
+  it("준수율과 위반 근거를 담는다 (ko)", () => {
+    const md = renderMarkdown(report, "ko");
     expect(md).toContain("50%");
     expect(md).toContain("여기서 위반");
   });
 
-  it("처방 섹션(hook/삭제)으로 분류하고 요약을 낸다", () => {
-    const md = renderMarkdown(report);
+  it("처방 섹션으로 분류하고 요약을 낸다 (ko)", () => {
+    const md = renderMarkdown(report, "ko");
     expect(md).toContain("hook으로 올려라");
     expect(md).toContain("지워도 된다");
-    expect(md).toContain("🔧hook 1");
+    expect(md).toContain("🔧1");
+  });
+
+  it("기본은 영어로 출력한다 (en)", () => {
+    const md = renderMarkdown(report);
+    expect(md).toContain("Promote to a hook");
+    expect(md).toContain("Safe to delete");
   });
 });
