@@ -2,9 +2,12 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 import { join } from "node:path";
+import { homedir } from "node:os";
 import type { Rule } from "../types.js";
 
-const CACHE_DIR = ".claudit";
+// 캐시는 실행 cwd(= 사용자 프로젝트)가 아니라 홈에 둔다.
+// 상대경로 ".claudit"는 남의 repo에 캐시 폴더를 만들어 커밋 오염을 일으켰다.
+export const CACHE_DIR = join(homedir(), ".claude-rx", "cache");
 
 export function readCachedRules(hash: string): Rule[] | null {
   const p = join(CACHE_DIR, `rules-${hash}.json`);
@@ -62,6 +65,7 @@ export async function extractRules(content: string, hash: string): Promise<Rule[
   });
   const block = res.content.find((b) => b.type === "tool_use");
   const rules = block && "input" in block ? (block.input as { rules: Rule[] }).rules : [];
-  writeCachedRules(hash, rules);
+  // 빈 추출 결과는 캐시하지 않는다 — 한 번의 실패가 박혀 이후 영원히 빈 리포트가 되는 캐시 독을 막는다.
+  if (rules.length) writeCachedRules(hash, rules);
   return rules;
 }
