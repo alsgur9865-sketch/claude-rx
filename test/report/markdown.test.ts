@@ -8,7 +8,7 @@ const report: AdherenceReport = {
   sessionCount: 2,
   stats: [
     { ruleId: "R1", text: "기계규칙", pass: 1, violation: 1, na: 0, rate: 0.5, prescription: "hook" },
-    { ruleId: "R2", text: "죽은규칙", pass: 0, violation: 0, na: 2, rate: null, prescription: "delete" },
+    { ruleId: "R2", text: "안나타난규칙", pass: 0, violation: 0, na: 2, rate: null, prescription: "observe" },
   ],
   verdicts: [
     { ruleId: "R1", sessionId: "b", status: "violation", confidence: 0.9, evidence: "여기서 위반" },
@@ -25,13 +25,13 @@ describe("renderMarkdown", () => {
   it("처방 섹션으로 분류하고 요약을 낸다 (ko)", () => {
     const md = renderMarkdown(report, "ko");
     expect(md).toContain("hook으로 올려라");
-    expect(md).toContain("지워도 된다");
+    expect(md).toContain("이번엔 안 나타남");
     expect(md).toContain("🔧1");
   });
 
   it("기본은 영어로 출력한다 (en)", () => {
     const md = renderMarkdown(report);
     expect(md).toContain("Promote to a hook");
-    expect(md).toContain("Safe to delete");
+    expect(md).toContain("Didn't come up");
   });
 });

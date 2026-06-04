@@ -27,7 +27,7 @@ CLAUDE.md is a wish list, not a contract. Rules are loaded into context but [Cla
 It reads your past Claude Code sessions and, for each rule, tells you **what to do**:
 
 - 🔧 **Promote to a hook** — machine-checkable rules that got violated (e.g. `git push --force`). claude-rx tells you *which* rules are worth enforcing; Claude Code writes the hook.
-- 🗑️ **Delete** — rules that never triggered once. Dead weight burning your context budget.
+- ⚪ **Observe** — rules that didn't come up in this batch of sessions. Not "dead" — the sample may just be too small to judge yet, so claude-rx holds off instead of telling you to delete a healthy rule.
 - ✍️ **Strengthen wording** — subjective rules that keep getting broken.
 
 The compliance % is just the evidence behind each prescription, not the product.
@@ -46,7 +46,7 @@ claude-rx prescriptions — ~/.claude/CLAUDE.md (5 sessions)
 🔧 Promote to a hook (machine-checkable + violated)
    0%  no-force-push   (violated 1/NA 1)
 
-5 rules → 🔧1 / 🗑️0 / ✍️0 / ✅4
+5 rules → 🔧1 / ✍️0 / ⚪0 / ✅4
 ```
 
 ## Deeper analysis (bring your own key)

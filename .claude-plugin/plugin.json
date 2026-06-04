@@ -1,6 +1,6 @@
 {
   "name": "claude-rx",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Audit how well Claude Code followed your CLAUDE.md, then prescribe what to do about each rule — promote to a hook, reword, or delete dead rules. No API key (the session model judges).",
   "author": {
     "name": "MIN"

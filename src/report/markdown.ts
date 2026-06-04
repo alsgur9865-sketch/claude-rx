@@ -10,15 +10,24 @@ export function renderMarkdown(r: AdherenceReport, lang: Lang = "en"): string {
   const t = strings(lang);
   const sectionDefs: { key: Prescription; title: string }[] = [
     { key: "hook", title: t.secHook },
-    { key: "delete", title: t.secDelete },
     { key: "reword", title: t.secReword },
+    { key: "observe", title: t.secObserve },
   ];
   const sections = sectionDefs
     .map(({ key, title }) => {
       const rules = r.stats.filter((s) => s.prescription === key);
       const body = rules.length
         ? rules
-            .map((s) => t.mdRule(s.ruleId, s.text, pct(s.rate, t.na), s.pass, s.violation, s.na))
+            .map((s) =>
+              t.mdRule(
+                s.ruleId,
+                s.text,
+                pct(s.rate, t.na),
+                s.pass,
+                s.violation,
+                s.na,
+              ),
+            )
             .join("\n")
         : t.none;
       return `## ${title}\n${body}`;
@@ -30,7 +39,8 @@ export function renderMarkdown(r: AdherenceReport, lang: Lang = "en"): string {
     .map((v) => t.mdViolLine(v.ruleId, v.sessionId, v.confidence, v.evidence))
     .join("\n");
 
-  const count = (k: Prescription) => r.stats.filter((s) => s.prescription === k).length;
+  const count = (k: Prescription) =>
+    r.stats.filter((s) => s.prescription === k).length;
 
   return `# ${t.mdTitle}
 
@@ -43,6 +53,6 @@ ${sections}
 ${violations || t.mdNoViol}
 
 ---
-**${t.summary(r.stats.length, count("hook"), count("delete"), count("reword"), count("keep"))}**
+**${t.summary(r.stats.length, count("hook"), count("observe"), count("reword"), count("keep"))}**
 `;
 }

@@ -5,8 +5,8 @@ import type { Lang } from "../types.js";
 
 export interface Strings {
   secHook: string;
-  secDelete: string;
   secReword: string;
+  secObserve: string;
   na: string;
   none: string;
   header: (path: string, n: number) => string;
@@ -24,13 +24,13 @@ export interface Strings {
 
 const EN: Strings = {
   secHook: "🔧 Promote to a hook (machine-checkable + violated)",
-  secDelete: "🗑️ Safe to delete (never applied — dead rule)",
   secReword: "✍️ Strengthen the wording (subjective + often broken)",
+  secObserve: "⚪ Didn't come up (na only — sample may be too small to call it dead)",
   na: "N/A",
   none: "_none_",
   header: (p, n) => `claude-rx — ${p}  (${n} ${n === 1 ? "session" : "sessions"})`,
   count: (v, na) => `(violated ${v}/NA ${na})`,
-  summary: (t, h, d, r, k) => `${t} rules → 🔧${h} / 🗑️${d} / ✍️${r} / ✅${k}`,
+  summary: (t, h, o, r, k) => `${t} rules → 🔧${h} / ✍️${r} / ⚪${o} / ✅${k}`,
   mdTitle: "claude-rx report",
   mdTarget: "Target",
   mdSessions: (n) => `Sessions analyzed: ${n}`,
@@ -45,13 +45,13 @@ const EN: Strings = {
 
 const KO: Strings = {
   secHook: "🔧 hook으로 올려라 (기계검증 + 위반)",
-  secDelete: "🗑️ 지워도 된다 (적용 0회 — 죽은 규칙)",
   secReword: "✍️ 표현을 강화해라 (주관 + 자주 깨짐)",
+  secObserve: "⚪ 이번엔 안 나타남 (na만 — 표본이 작아 죽었다 단정 못 함)",
   na: "N/A",
   none: "_해당 없음_",
   header: (p, n) => `claude-rx 처방 — ${p}  (세션 ${n}개)`,
   count: (v, na) => `(위반 ${v}/NA ${na})`,
-  summary: (t, h, d, r, k) => `규칙 ${t}개 → 🔧${h} / 🗑️${d} / ✍️${r} / ✅${k}`,
+  summary: (t, h, o, r, k) => `규칙 ${t}개 → 🔧${h} / ✍️${r} / ⚪${o} / ✅${k}`,
   mdTitle: "claude-rx 처방 리포트",
   mdTarget: "대상",
   mdSessions: (n) => `분석 세션: ${n}개`,

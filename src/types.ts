@@ -40,8 +40,8 @@ export interface Verdict {
 }
 
 /** 규칙별 집계 */
-/** 규칙별 처방: 삭제 후보 / hook 승격 / 표현 강화 / 유지 */
-export type Prescription = "delete" | "hook" | "reword" | "keep";
+/** 규칙별 처방: hook 승격 / 표현 강화 / 유지 / 관망(이번 표본에선 적용 0회) */
+export type Prescription = "hook" | "reword" | "keep" | "observe";
 
 export interface RuleStat {
   ruleId: string;

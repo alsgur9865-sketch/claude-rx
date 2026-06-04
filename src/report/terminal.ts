@@ -18,8 +18,8 @@ export function printTerminal(r: AdherenceReport, lang: Lang = "en"): void {
   const t = strings(lang);
   const sections: { key: Prescription; title: string }[] = [
     { key: "hook", title: t.secHook },
-    { key: "delete", title: t.secDelete },
     { key: "reword", title: t.secReword },
+    { key: "observe", title: t.secObserve },
   ];
   console.log(pc.bold(`\n${t.header(r.claudeMdPath, r.sessionCount)}\n`));
   for (const { key, title } of sections) {
@@ -43,7 +43,13 @@ export function printTerminal(r: AdherenceReport, lang: Lang = "en"): void {
     r.stats.filter((s) => s.prescription === k).length;
   console.log(
     pc.bold(
-      t.summary(r.stats.length, c("hook"), c("delete"), c("reword"), c("keep")),
+      t.summary(
+        r.stats.length,
+        c("hook"),
+        c("observe"),
+        c("reword"),
+        c("keep"),
+      ),
     ),
   );
   console.log();

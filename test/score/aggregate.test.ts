@@ -25,14 +25,14 @@ describe("처방 분류", () => {
   const rules: Rule[] = [
     { id: "hookR", text: "기계규칙", type: "machine" },
     { id: "rewordR", text: "주관규칙", type: "ai" },
-    { id: "deleteR", text: "죽은규칙", type: "ai" },
+    { id: "observeR", text: "안나타난규칙", type: "ai" },
     { id: "keepR", text: "잘지킴", type: "machine" },
     { id: "safeR", text: "force-push금지(안어김)", type: "machine" },
   ];
   const verdicts: Verdict[] = [
     v("hookR", "violation"),
     v("rewordR", "violation"),
-    v("deleteR", "na"),
+    v("observeR", "na"),
     v("keepR", "pass"),
     v("safeR", "na"),
     v("safeR", "na"),
@@ -42,7 +42,8 @@ describe("처방 분류", () => {
 
   it("기계검증 + 위반 → hook", () => expect(byId("hookR").prescription).toBe("hook"));
   it("주관 + 위반 → reword", () => expect(byId("rewordR").prescription).toBe("reword"));
-  it("주관 + 적용 0회 → delete", () => expect(byId("deleteR").prescription).toBe("delete"));
+  it("주관 + 적용 0회(na만) → observe (삭제 단정 X)", () =>
+    expect(byId("observeR").prescription).toBe("observe"));
   it("기계 + 위반 없음(지킴) → keep", () => expect(byId("keepR").prescription).toBe("keep"));
   it("기계 + 안 어김(na만) → keep (삭제 아님)", () =>
     expect(byId("safeR").prescription).toBe("keep"));
