@@ -1,6 +1,6 @@
 ---
 name: claude-rx
-description: Audit how well Claude Code actually followed YOUR CLAUDE.md rules in recent sessions, then prescribe what to do about each rule — promote to a hook, delete dead rules, or strengthen wording. Use this whenever the user wants to check, audit, or review their CLAUDE.md compliance, asks which rules Claude ignored or followed, wonders "am I even following my own rules", mentions rule adherence or rule violations, or wants to clean up and improve their CLAUDE.md. Runs with NO API key — the current session model is the judge.
+description: Audit how well Claude Code actually followed YOUR CLAUDE.md rules in recent sessions, then prescribe what to do about each rule — promote to a hook, delete dead rules, or strengthen wording. Use this whenever the user wants to check, audit, or review their CLAUDE.md compliance, asks which rules Claude ignored or followed, wonders "am I even following my own rules", mentions rule adherence or rule violations, or wants to clean up, improve, or redesign their CLAUDE.md. Runs with NO API key — the current session model is the judge.
 ---
 
 # claude-rx — prescribe fixes for your CLAUDE.md
@@ -117,6 +117,33 @@ Your X rules → 🔧 a promote · ✍️ b reword · 🗑️ c delete · ⚪ d 
 ```
 
 Every violation line MUST carry an evidence quote and its session id. That's the honesty contract — the user can verify each call for themselves. A prescription without evidence is just an opinion.
+
+### 6. (Optional) Redesign mode — rewrite the CLAUDE.md from the evidence
+
+The report tells the user *what* to fix. Redesign mode does it: it rewrites their CLAUDE.md, backed by the same evidence, and (with permission) edits the file in place. No API key — you, the session model, are the rewriter and the editor.
+
+Offer this only after the report, and only if the user asks for it ("redesign it", "rewrite my CLAUDE.md", "apply this", "fix my CLAUDE.md"). **Never auto-apply.**
+
+**The one rule that separates this from "just rewrite my CLAUDE.md":** every change must be justified by data you actually measured, not by your taste. No data → no change. Tag each edit with its reason in one line (violated v/applied a, and file position).
+
+1. **Gather evidence per rule:** its prescription (🔧 hook / ✍️ reword / ⚪ observe / ✅ keep), its violated/applied counts, and **its position** — read the CLAUDE.md and note where each rule sits (line number, and how deep: top / middle / buried near the end). Depth matters: rules buried deep are the first to get dropped on compaction, so a deep rule with a high violation rate is a prime "move it up" candidate.
+
+2. **Turn prescriptions into concrete edits, each with its data reason:**
+   - 🔧 **hook + violated** → move it OUT of CLAUDE.md into a `settings.json` hook and delete it from the file. *"machine + violated v/a → enforce as a hook, not prose."*
+   - ✍️ **reword + violated** → rewrite it to be measurable/specific, and if it sits deep, move it up. *"subjective + violated v/a, buried at line N → tightened + moved up."*
+   - ⚪ **observe (na only)** → group these and move them low. Do NOT delete (the sample may be small). *"0 applied in N sessions → grouped, lowered, kept."*
+   - **buried high-violation rule** → move to the top, or split into a focused `@import`ed file. *"line N of M (deep) + violated v/a → relocated up."*
+   - ✅ **keep** → leave it. Don't touch what's working.
+
+3. **Preserve meaning. Change only wording / position / structure.** You are reorganizing and tightening, NOT changing what the user meant. If you're unsure what a rule intends, keep it verbatim and just move it. Never invent new rules.
+
+4. **Apply safely — non-negotiable:**
+   - Back up the original first: copy `CLAUDE.md` → `CLAUDE.md.bak`.
+   - Show the user a **diff**: what changes, with the one-line data reason for each.
+   - Edit the file in place **only after the user approves.** If they decline, leave it untouched — the `.bak` and the proposed diff are still theirs.
+   - Never edit without showing the diff first. Never skip the backup.
+
+The result is a CLAUDE.md measurably tuned to how the user actually works — shorter where rules were dead, enforced where prose was failing, reordered so the rules that matter aren't the ones getting forgotten.
 
 ## Honest limitation (state it, don't hide it)
 
