@@ -21,11 +21,11 @@ The compliance verdict is just the evidence. The product is the **prescription**
 Run this (no API key required):
 
 ```bash
-node D:\project\claudit\dist\cli.js --json --cwd <PROJECT_DIR> --limit 5
+npx claude-rx --json --cwd <PROJECT_DIR> --limit 5
 ```
 
 - `<PROJECT_DIR>` = the project whose sessions to audit. Default to the user's current working directory unless they name another.
-- The local `dist` path above is for development. When this ships, the command becomes `npx claude-rx --json ...`.
+- `npx claude-rx` pulls the published package on first run — no clone, no build, no API key.
 
 It prints JSON:
 

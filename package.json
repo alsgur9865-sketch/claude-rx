@@ -18,6 +18,15 @@
     "prescription"
   ],
   "license": "MIT",
+  "author": "MIN",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alsgur9865-sketch/claude-rx.git"
+  },
+  "homepage": "https://github.com/alsgur9865-sketch/claude-rx#readme",
+  "bugs": {
+    "url": "https://github.com/alsgur9865-sketch/claude-rx/issues"
+  },
   "scripts": {
     "build": "tsc",
     "dev": "tsx src/cli.ts",
