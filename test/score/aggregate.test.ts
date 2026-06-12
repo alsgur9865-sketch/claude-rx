@@ -27,7 +27,7 @@ describe("처방 분류", () => {
     { id: "rewordR", text: "주관규칙", type: "ai" },
     { id: "observeR", text: "안나타난규칙", type: "ai" },
     { id: "keepR", text: "잘지킴", type: "machine" },
-    { id: "safeR", text: "force-push금지(안어김)", type: "machine" },
+    { id: "safeR", text: "force-push금지(Bash없는세션들)", type: "machine" },
   ];
   const verdicts: Verdict[] = [
     v("hookR", "violation"),
@@ -44,7 +44,10 @@ describe("처방 분류", () => {
   it("주관 + 위반 → reword", () => expect(byId("rewordR").prescription).toBe("reword"));
   it("주관 + 적용 0회(na만) → observe (삭제 단정 X)", () =>
     expect(byId("observeR").prescription).toBe("observe"));
-  it("기계 + 위반 없음(지킴) → keep", () => expect(byId("keepR").prescription).toBe("keep"));
-  it("기계 + 안 어김(na만) → keep (삭제 아님)", () =>
+  it("기계 + pass(준수) → keep, rate도 계산된다", () => {
+    expect(byId("keepR").prescription).toBe("keep");
+    expect(byId("keepR").rate).toBe(1); // machine pass 도입으로 rate가 N/A에서 벗어남
+  });
+  it("기계 + 검사 대상 없음(na만) → keep (삭제 아님)", () =>
     expect(byId("safeR").prescription).toBe("keep"));
 });

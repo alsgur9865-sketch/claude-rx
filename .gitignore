@@ -8,3 +8,12 @@ claude-rx-report.md
 # 로컬 작업 문서 (배포 대상 아님)
 docs/
 DESIGN.md
+
+# 로컬 전용 (커밋 금지 — 데모 제작·핸드오프 파일)
+NEXT-SESSION.md
+demo.tape
+demo-setup.sh
+demo-output.txt
+setup-vhs.sh
+assets/demo-en.svg
+ChatGPT Image*.png

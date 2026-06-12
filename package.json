@@ -1,7 +1,7 @@
 {
   "name": "claude-rx",
   "version": "0.1.1",
-  "description": "Audit how well Claude Code followed your CLAUDE.md — and prescribe fixes (promote to hook, delete dead rules)",
+  "description": "Audit how well Claude Code followed your CLAUDE.md — and prescribe fixes (promote to hook, strengthen wording, or flag for observation)",
   "type": "module",
   "bin": { "claude-rx": "dist/cli.js" },
   "files": ["dist"],

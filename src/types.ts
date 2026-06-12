@@ -4,11 +4,17 @@
 /** 리포트 출력 언어 */
 export type Lang = "en" | "ko";
 
+/** 정규화된 도구 호출 (슬림): 소비처가 쓰는 것만 — Bash는 command, 나머지는 이름만 */
+export interface ToolUse {
+  name: string;
+  command?: string; // Bash 전용: 실행된 셸 명령
+}
+
 /** 정규화된 한 메시지 (메타·hook 줄은 제외하고 대화만) */
 export interface NormalizedMessage {
   role: "user" | "assistant";
   text: string; // content 안의 text를 이어붙인 것
-  toolUses: { name: string; input: unknown }[];
+  toolUses: ToolUse[];
 }
 
 /** 한 세션 트랜스크립트 */

@@ -24,7 +24,14 @@ function extractContent(content: unknown): {
     if (block.type === "text" && typeof block.text === "string")
       text += block.text;
     else if (block.type === "tool_use" && typeof block.name === "string") {
-      toolUses.push({ name: block.name, input: block.input });
+      // 슬림화: 소비처(machine 채점)가 쓰는 건 Bash의 command뿐 — 다른 도구 input은 보존하지 않는다
+      const cmd =
+        block.name === "Bash"
+          ? (block.input as { command?: unknown } | null | undefined)?.command
+          : undefined;
+      toolUses.push(
+        typeof cmd === "string" ? { name: block.name, command: cmd } : { name: block.name },
+      );
     }
   }
   return { text, toolUses };

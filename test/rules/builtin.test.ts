@@ -19,4 +19,14 @@ describe("BUILTIN_RULES", () => {
     expect("git push -f").toMatch(re);
     expect("git push origin main").not.toMatch(re);
   });
+
+  it("global install을 -g와 --global 모두 잡고, 로컬 설치는 안 잡는다", () => {
+    const gi = BUILTIN_RULES.find((r) => r.id === "no-global-install")!;
+    const re = new RegExp(gi.pattern!, "i");
+    expect("npm install -g typescript").toMatch(re);
+    expect("npm i -g tsx").toMatch(re);
+    expect("npm install --global typescript").toMatch(re);
+    expect("npm install typescript").not.toMatch(re);
+    expect("npm install --save-dev vitest").not.toMatch(re);
+  });
 });

@@ -36,6 +36,6 @@ export const BUILTIN_RULES: Rule[] = [
     id: "no-global-install",
     text: "no global npm install",
     type: "machine",
-    pattern: "npm\\s+(i|install)\\b[^\\n]*\\s-g\\b",
+    pattern: "npm\\s+(i|install)\\b[^\\n]*\\s(-g|--global)\\b",
   },
 ];

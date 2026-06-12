@@ -41,7 +41,7 @@ npx claude-rx
 Out of the box, claude-rx runs **5 built-in machine checks** — force-push, `reset --hard`, committing `.env`, hardcoded secrets, global installs — against your recent sessions. **Completely free, no key.**
 
 ```
-claude-rx prescriptions — ~/.claude/CLAUDE.md (5 sessions)
+claude-rx — ~/.claude/CLAUDE.md (5 sessions)
 
 🔧 Promote to a hook (machine-checkable + violated)
    0%  no-force-push   (violated 1/NA 1)
@@ -61,6 +61,8 @@ npx claude-rx --path ~/.claude/CLAUDE.md
 ```
 
 Cost is tiny — Haiku, only the relevant excerpts, recent sessions only. Typically **under a coffee for 20 sessions**. It's *your* key and *your* spend; claude-rx never sends it anywhere except Anthropic's API.
+
+> **Privacy note:** In API key mode, session transcript excerpts are sent to the Anthropic API for scoring. The generated report (`claude-rx-report.md`) contains conversation quotes — add it to `.gitignore` and avoid committing it to public repos.
 
 ## How it works
 
@@ -83,6 +85,8 @@ Measurement is a heuristic, not truth. For example, a `cat`/heredoc that writes 
 | `-c, --cwd <dir>` | current dir | project whose sessions to analyze |
 | `-l, --limit <n>` | `20` | number of recent sessions |
 | `-o, --out <file>` | `claude-rx-report.md` | markdown report path |
+| `--lang <lang>` | `en` | report language (`en` or `ko`) |
+| `--json` | — | machine output for Claude Code skill use — skips scoring, emits raw machine verdicts + session excerpts as JSON to stdout (no API key needed) |
 
 ## Roadmap
 
@@ -90,6 +94,10 @@ Measurement is a heuristic, not truth. For example, a `cat`/heredoc that writes 
 - Wording suggestions for subjective rules (judge reads violation patterns, rewrites the rule)
 - Low-confidence escalation (Haiku → Sonnet), mini-ensemble, golden-set calibration
 - CI integration — audit on every PR
+
+## Versioning
+
+The npm CLI (`claude-rx`) and the Claude Code plugin/skill are versioned independently — currently npm `0.1.1`, plugin `0.2.0`.
 
 ## License
 

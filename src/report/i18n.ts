@@ -11,7 +11,7 @@ export interface Strings {
   none: string;
   header: (path: string, n: number) => string;
   count: (violation: number, na: number) => string;
-  summary: (total: number, hook: number, del: number, reword: number, keep: number) => string;
+  summary: (total: number, hook: number, observe: number, reword: number, keep: number) => string;
   mdTitle: string;
   mdTarget: string;
   mdSessions: (n: number) => string;
@@ -20,6 +20,8 @@ export interface Strings {
   mdViolLine: (id: string, sid: string, conf: number, ev: string) => string;
   mdNoViol: string;
   noKey: (n: number) => string;
+  saved: (path: string) => string;
+  privacy: string;
 }
 
 const EN: Strings = {
@@ -41,6 +43,9 @@ const EN: Strings = {
   mdNoViol: "_no violations_",
   noKey: (n) =>
     `⚠ No ANTHROPIC_API_KEY — using ${n} built-in machine checks only (subjective-rule analysis needs a key)`,
+  saved: (p) => `📄 Report saved: ${p}`,
+  privacy:
+    "⚠ The report quotes your session transcripts — keep it out of your repo (add it to .gitignore).",
 };
 
 const KO: Strings = {
@@ -62,6 +67,9 @@ const KO: Strings = {
   mdNoViol: "_위반 없음_",
   noKey: (n) =>
     `⚠ ANTHROPIC_API_KEY 없음 → 내장 기계검증 규칙 ${n}개만 사용 (주관 규칙 분석은 키 필요)`,
+  saved: (p) => `📄 리포트 저장: ${p}`,
+  privacy:
+    "⚠ 리포트에 세션 대화 인용이 포함됩니다 — repo에 커밋하지 마세요 (.gitignore 권장).",
 };
 
 export function strings(lang: Lang): Strings {

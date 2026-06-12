@@ -9,7 +9,7 @@
     {
       "name": "claude-rx",
       "source": "./",
-      "description": "Audit how well Claude Code followed your CLAUDE.md, then prescribe what to do about each rule — promote to a hook, reword, or delete dead rules. No API key (the session model judges).",
+      "description": "Audit how well Claude Code followed your CLAUDE.md, then prescribe what to do about each rule — promote to a hook, strengthen wording, or flag for observation. No API key (the session model judges).",
       "homepage": "https://github.com/alsgur9865-sketch/claude-rx",
       "repository": "https://github.com/alsgur9865-sketch/claude-rx",
       "license": "MIT"

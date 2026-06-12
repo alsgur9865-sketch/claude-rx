@@ -62,6 +62,8 @@ npx claude-rx --path ~/.claude/CLAUDE.md
 
 비용은 아주 작습니다 — Haiku, 관련 발췌만, 최근 세션만. 보통 **세션 20개에 커피 한 잔 값 이하**입니다. *당신의* 키이고 *당신의* 지출이며, claude-rx는 Anthropic API 외 어디로도 키를 보내지 않습니다.
 
+> **프라이버시 안내:** API 키 모드에서는 세션 대화 발췌가 채점을 위해 Anthropic API로 전송됩니다. 생성되는 리포트(`claude-rx-report.md`)에는 대화 인용이 포함되므로 `.gitignore`에 추가하고 공개 저장소에 커밋하지 마세요.
+
 ## 작동 방식
 
 하이브리드 채점:
@@ -83,6 +85,8 @@ npx claude-rx --path ~/.claude/CLAUDE.md
 | `-c, --cwd <dir>` | 현재 디렉토리 | 세션을 분석할 프로젝트 |
 | `-l, --limit <n>` | `20` | 최근 세션 수 |
 | `-o, --out <file>` | `claude-rx-report.md` | 마크다운 리포트 경로 |
+| `--lang <lang>` | `en` | 리포트 언어 (`en` 또는 `ko`) |
+| `--json` | — | Claude Code 스킬이 사용하는 기계용 출력 — 채점 생략, 기계검증 처방 원자료 + 세션 발췌를 JSON으로 stdout 출력 (API 키 불필요) |
 
 ## 로드맵
 
@@ -90,6 +94,10 @@ npx claude-rx --path ~/.claude/CLAUDE.md
 - 주관적 규칙 표현 제안 (judge가 위반 패턴을 읽고 규칙을 다시 씀)
 - 저신뢰도 에스컬레이션 (Haiku → Sonnet), 미니 앙상블, 골든셋 캘리브레이션
 - CI 통합 — PR마다 자동 감사
+
+## 버전 정책
+
+npm CLI(`claude-rx`)와 Claude Code 플러그인/스킬은 독립적으로 버전이 매겨집니다 — 현재 npm `0.1.1`, plugin `0.2.0`.
 
 ## 라이선스
 
